@@ -1,5 +1,4 @@
 selenium==4.17.2
 moviepy==1.0.3
-tiktok-uploader==1.0.15
 scrapetube==2.5.1
 whisper-timestamped==1.14.4

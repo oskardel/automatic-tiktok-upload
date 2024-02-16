@@ -2,7 +2,7 @@ import os
 import random
 import download_videos
 import create_video
-import add_subtitles
+import time
 
 
 if __name__ == "__main__":
@@ -12,12 +12,14 @@ if __name__ == "__main__":
         download_videos.download_gameplay_videos()
             
     random_episode = random.choice(os.listdir("./media/raw_videos"))
-    create_video.create_video_without_subs("./media/raw_videos/"+random_episode)
-    add_subtitles.add_subtitles_to_video()
-    create_video.delete_videos()
 
-# TODO:
-# - ARREGLAR PROBLEMA FINAL VÍDEO (DURA MÁS DE LO QUE DURA EL EPISODIO DE CODIGO LYOKO) ✔
-# - IMPLEMENTAR CÓDIGO PARA SUBIR AUTOMÁTICAMENTE A TIKTOK ✔
-# - SUBIR A GITHUB ✖
-# - CREAR EC2 EN AWS Y SUBIR EL CÓDIGO ✖
+    starting_time = time.time()
+    create_video.create_video_with_subs("./media/raw_videos/"+random_episode)
+    ending_time = time.time()
+    print(f"Created the video clips in {round((ending_time - starting_time),2)} seconds")
+
+    time.sleep(5)
+
+    create_video.delete_full_episode(random_episode)
+    
+    print(f"The process has finished!")
